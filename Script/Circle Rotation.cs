@@ -8,10 +8,11 @@ public class CircleRotation : MonoBehaviour
 {
     public float Circlespeed;
     public float switchTime;
-    public Transform Rotation;
-    public Vector3 DefPos;
+    public Transform gameobject;
+  
+    
     public bool Clockwise = true;
-    public bool stopped = false;
+
     public float timeelapsed = 0f;
 
 
@@ -21,9 +22,9 @@ public class CircleRotation : MonoBehaviour
     void Update()
     {
 
-        {
 
-        }
+
+
 
         timeelapsed += Time.deltaTime;
 
@@ -47,28 +48,33 @@ public class CircleRotation : MonoBehaviour
 
 
         Debug.Log("Rotation");
+    }
         void OnTriggerEnter(Collider other)
         {
 
 
-            if (other.CompareTag("") && !stopped)
+            if (other.CompareTag("Collectible"))
             {
-                StopMovement(other.gameObject);
-            }
-            void StopMovement(GameObject target)
-            {
-               
-                Rigidbody2D rb = target.GetComponent<Rigidbody2D>();
-                if (rb != null)
+                GameManager gameManager = FindObjectOfType<GameManager>();
+                if (gameManager != null)
                 {
-                    rb.velocity = Vector2.zero; 
-                    rb.isKinematic = true; 
-
+                    gameManager.AddScore(other.GetComponent<MotionofGame>().Score);
+                    Destroy(other.gameObject);
                 }
-                stopped = true;
+            }
+            else if (other.CompareTag("Obstacle"))
+            {
+                GameManager gameManager = FindObjectOfType<GameManager>();
+                if (gameManager != null)
+                {
+                    gameManager.GameOver();
+                }
             }
         }
     }
-}
+
+
+        
     
+
 
