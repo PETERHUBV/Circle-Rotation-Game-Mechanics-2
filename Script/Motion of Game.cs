@@ -5,53 +5,52 @@ using UnityEngine;
 
 public class MotionofGame : MonoBehaviour
 {
-    // Start is called before the first frame update
     public int Score;
     public bool Obstacle;
+    public float speed = 2f;
 
 
-    // Update is called once per frame
+    public Vector3 MovementDirection;
+
+    void Start()
+    {
+
+        MovementDirection = Random.Range(0, 2) == 0 ? Vector3.right : Vector3.left;
+    }
+
     void Update()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * 2);
-        if (transform.position.x < -10f)
-        {
-            Destroy(gameObject);
-        }
+
+        transform.Translate(MovementDirection * speed * Time.deltaTime);
+
+
+        //  if (transform.position.x < -10f || transform.position.x > 10f)
+        //  {
+
+        // }
+
     }
         void OnTriggerEnter(Collider collision)
         {
             if (collision.CompareTag("Player"))
-
             {
                 GameManager gameManager = FindObjectOfType<GameManager>();
                 if (gameManager != null)
                 {
-
                     if (Obstacle)
                     {
                         gameManager.GameOver();
                     }
                     else
                     {
-
                         gameManager.AddScore(Score);
-                        Destroy(gameObject);
                     }
+
                 }
                 else
                 {
-                    Debug.LogError("GameManager not found");
-                }
-                    
+                    Debug.LogError("GameManager not working");
                 }
             }
         }
-    
-
-
-        
-    
-
-    
-
+    }

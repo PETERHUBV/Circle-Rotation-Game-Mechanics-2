@@ -9,23 +9,22 @@ public class GameManager : MonoBehaviour
 
 {
     public  float score = 0;
-    public static GameManager instance;
-  
+    public Text ScoreText;
     public GameOverManager gameOverManager;
     public float scrollspeed = 1f;
    
     // Start is called before the first frame update
 
-    public void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
+ 
     void Start()
     {
         gameOverManager = FindObjectOfType<GameOverManager>();
+        if(ScoreText == null)
+        {
+
+
+        }
+        UpdateScoreText();
     }
     public void GameOver()
     {
@@ -35,9 +34,18 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount) 
     {
         score += amount;
-        Debug.Log("Score");
+        Debug.Log("Score" + score);
+        UpdateScoreText();
     }
-    
+    public void UpdateScoreText()
+    {
+        if (ScoreText == null)
+        {
+
+
+        }
+        ScoreText.text = "" + score;
+    }
 
     
     // Update is called once per frame
