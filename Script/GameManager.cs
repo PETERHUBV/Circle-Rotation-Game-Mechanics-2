@@ -19,17 +19,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameOverManager = FindObjectOfType<GameOverManager>();
-        if(ScoreText == null)
-        {
+       
+        
+            UpdateScoreText();
+            if (gameOverManager != null)
+            {
+               
+            }
 
-
-        }
-        UpdateScoreText();
+        
+       
     }
     public void GameOver()
     {
         Debug.Log("Game Over");
-        gameOverManager.ShowGameOver();
+        if (gameOverManager != null)
+        {
+            gameOverManager.ShowGameOver();
+        }
     }
     public void AddScore(int amount) 
     {
@@ -39,12 +46,12 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateScoreText()
     {
-        if (ScoreText == null)
+        if (ScoreText != null)
         {
 
-
+            ScoreText.text = "" + score;
         }
-        ScoreText.text = "" + score;
+      
     }
 
     

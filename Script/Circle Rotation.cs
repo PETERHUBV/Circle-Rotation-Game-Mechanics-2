@@ -9,8 +9,8 @@ public class CircleRotation : MonoBehaviour
     public float Circlespeed;
     public float switchTime;
     public Transform gameobject;
-  
-    
+
+
     public bool Clockwise = true;
 
     public float timeelapsed = 0f;
@@ -21,8 +21,6 @@ public class CircleRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
 
 
 
@@ -38,10 +36,6 @@ public class CircleRotation : MonoBehaviour
             Clockwise = !Clockwise;
         }
 
-
-
-
-
         float direction = Clockwise ? 1f : -1f;
 
         transform.Rotate(Vector3.forward, Circlespeed * direction * Time.deltaTime);
@@ -49,7 +43,7 @@ public class CircleRotation : MonoBehaviour
 
         Debug.Log("Rotation");
     }
-        void OnTriggerEnter(Collider other)
+      public void OnTriggerEnter2D(Collider2D other)
         {
 
 
@@ -58,16 +52,23 @@ public class CircleRotation : MonoBehaviour
                 GameManager gameManager = FindObjectOfType<GameManager>();
                 if (gameManager != null)
                 {
-                    gameManager.AddScore(other.GetComponent<MotionofGame>().Score);
+                MotionofGame collectible = other.GetComponent<MotionofGame>();
+                if (collectible != null)
+                {
+
+                    gameManager.AddScore(collectible.score);
                     Destroy(other.gameObject);
+                }
                 }
             }
             else if (other.CompareTag("Obstacle"))
             {
                 GameManager gameManager = FindObjectOfType<GameManager>();
                 if (gameManager != null)
+
                 {
                     gameManager.GameOver();
+                    Destroy(gameObject);
                 }
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MotionofGame : MonoBehaviour
 {
-    public int Score;
+    public int score = 3;
     public bool Obstacle;
     public float speed = 2f;
 
@@ -14,7 +14,7 @@ public class MotionofGame : MonoBehaviour
 
     void Start()
     {
-
+     
         MovementDirection = Random.Range(0, 2) == 0 ? Vector3.right : Vector3.left;
     }
 
@@ -30,27 +30,32 @@ public class MotionofGame : MonoBehaviour
         // }
 
     }
-        void OnTriggerEnter(Collider collision)
+        public void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
             {
                 GameManager gameManager = FindObjectOfType<GameManager>();
-                if (gameManager != null)
+            if (gameManager != null)
+            {
+                if (Obstacle)
                 {
-                    if (Obstacle)
-                    {
-                        gameManager.GameOver();
-                    }
-                    else
-                    {
-                        gameManager.AddScore(Score);
-                    }
-
+                    gameManager.GameOver();
                 }
-                else
+                else 
                 {
-                    Debug.LogError("GameManager not working");
+                    gameManager.AddScore(score);
                 }
             }
+
+
+            else
+            {
+                Debug.LogError("GameManager not working");
+            }
+          
+            
+               
+            }
+            }
         }
-    }
+    
